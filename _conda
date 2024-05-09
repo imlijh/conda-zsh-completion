@@ -750,10 +750,20 @@ case $state in
             _arguments -C $help_opts \
                           '--stack[activate this environment on top of the previous environment]' \
                           '*:environment:{__conda_envs; _directories}'
-                    ;;
+            ;;
     (deactivate)
             _arguments -C $help_opts \
-                    ;;
+            ;;
+    (run)
+            _arguments -C $help_opts \
+                          $env_opts \
+                          '(-v --verbose)'{-v,--verbose}'[use once for info, twice for debug, three times for trace]' \
+                          '--dev[sets `CONDA_EXE` to `python -m conda`, assuming the CWD contains the root of conda development sources]' \
+                          '--debug-wrapper-scripts[the shell wrapper scripts will echo to stderr a lot of debugging information]' \
+                          '--cwd[current working directory for command to run in]:cwd:_directories' \
+                          '(--no-capture-output --live-stream)'{--no-capture-output,--live-stream}"[don't capture stdout/stderr]" \
+                          '*::executable_call:_normal' \
+            ;;
     esac
     ;;
 esac
